@@ -1,0 +1,90 @@
+/* General Responsive Layout */
+.container {
+    padding: 0 15px;
+  }
+  
+  /* Adjust padding and gaps for mobile */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+      gap: 50px; /* Reduce spacing between components */
+    }
+    
+    .carousel-container .carousel-image {
+      width: 90%; /* Reduce image width on smaller screens */
+      height: auto;
+    }
+  
+    .carousel-container .carousel-title {
+      font-size: 24px; /* Adjust font size for titles */
+    }
+  
+    .carousel-container .carousel-subtitle {
+      font-size: 16px;
+    }
+  
+    .team-container {
+      padding: 10px;
+    }
+  
+    .team-card {
+      width: 100%; /* Use full width for team cards */
+    }
+  
+    .team-grid {
+      flex-direction: column; /* Stack columns vertically */
+      gap: 20px; /* Adjust spacing */
+    }
+  }
+  
+  /* AboutMe Component */
+  @media (max-width: 768px) {
+    .about-me {
+      flex-direction: column; /* Stack image and text vertically */
+      align-items: center;
+    }
+  
+    .about-me img {
+      width: 100%; /* Make image responsive */
+      height: auto;
+    }
+  }
+  
+  /* ServiceList Adjustments */
+  @media (max-width: 768px) {
+    .service-list {
+      padding: 0 10px;
+    }
+  
+    .service-list .accordion {
+      padding: 0; /* Remove excess padding */
+    }
+  }
+  
+  /* Background Component Adjustments */
+  @media (max-width: 768px) {
+    .background-component {
+      padding: 10px;
+      background-size: cover; /* Adjust background for smaller screens */
+      text-align: center; /* Center text */
+    }
+  
+    .background-component h4,
+    .background-component h6 {
+      font-size: 18px; /* Adjust font size */
+    }
+  }
+  
+  /* Bottom Border Adjustments */
+  @media (max-width: 768px) {
+    .bottom-border {
+      flex-direction: column; /* Stack elements vertically */
+      text-align: center;
+      padding: 10px;
+    }
+  
+    .bottom-border a {
+      margin: 5px 0; /* Add spacing between icons */
+    }
+  }
+  
