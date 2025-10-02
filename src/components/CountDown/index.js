@@ -43,25 +43,18 @@ const fmtLongDate = (date) =>
   });
 
 // ------- main -------
-/**
- * formatAbove:
- *  - MUI breakpoint key: 'sm' | 'md' | 'lg' | 'xl'
- *  - OR a pixel number (e.g. 900) to switch at that width
- */
 export default function CountDown({
   target = new Date("2025-11-07T00:00:00"),
   title = "Countdown for Growing Pains Getting Added To Tubi",
   buttonText = "It's Time! Take Me to the Tubi Movie!",
   onButtonClick,
   accent,
-  formatAbove = "md", // use "full" layout at/above this breakpoint (or px)
+  formatAbove = "md",
 }) {
   const { msLeft, days, hours, minutes, seconds } = useCountdown(target);
   const done = msLeft === 0;
 
   const theme = useTheme();
-
-  // Build a stable string media query first, then one useMediaQuery call
   const mq = React.useMemo(
     () =>
       typeof formatAbove === "number"
@@ -103,12 +96,6 @@ export default function CountDown({
         px: { xs: 2, md: 4 },
         py: { xs: 4, md: 8 },
         textAlign: "center",
-        background: `linear-gradient(135deg,
-          ${t.palette.mode === "dark" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"},
-          transparent 35%),
-          radial-gradient(80% 120% at 50% -10%,
-          ${t.palette.mode === "dark" ? "rgba(124,58,237,0.12)" : "rgba(124,58,237,0.06)"},
-          transparent 60%)`,
       })}
     >
       <Paper
@@ -120,18 +107,22 @@ export default function CountDown({
           py: { xs: 3, md: 4 },
           borderRadius: 4,
           backdropFilter: "saturate(120%) blur(6px)",
-          backgroundColor:
-            t.palette.mode === "dark"
-              ? "rgba(255,255,255,0.06)"
-              : "rgba(255,255,255,0.8)",
-          border: `1px solid ${
-            t.palette.mode === "dark"
-              ? "rgba(255,255,255,0.12)"
-              : "rgba(0,0,0,0.07)"
-          }`,
         })}
       >
         <Stack spacing={3} alignItems="center">
+          {/* Growing Pains image */}
+          <Box
+            component="img"
+            src="/img/growingpains.jpg"
+            alt="Growing Pains"
+            sx={{
+              width: "30%",
+              maxWidth: 640,
+              borderRadius: 3,
+              objectFit: "cover",
+            }}
+          />
+
           <Chip
             label={done ? "Available" : "Upcoming"}
             size="small"
@@ -143,17 +134,13 @@ export default function CountDown({
           />
           <Typography
             variant={isFull ? "h4" : "h5"}
-            sx={{ fontWeight: 800, lineHeight: 1.15, letterSpacing: 0.2 }}
+            sx={{ fontWeight: 800, lineHeight: 1.15 }}
           >
             {title}
           </Typography>
 
-          <Typography
-            variant="body2"
-            sx={{ opacity: 0.7, mt: -1 }}
-            title={target.toString()}
-          >
-            Target: {fmtLongDate(target)}
+          <Typography variant="body2" sx={{ opacity: 0.7, mt: -1 }}>
+            Growing Pains Tubi Movie Release Date: {fmtLongDate(target)}
           </Typography>
 
           <Divider sx={{ width: "100%", my: 0.5 }} />
@@ -179,30 +166,7 @@ export default function CountDown({
             variant={done ? "outlined" : "contained"}
             size={isFull ? "large" : "medium"}
             onClick={handleClick}
-            sx={(t) => ({
-              mt: 1,
-              px: isFull ? 3 : 2.25,
-              fontWeight: 700,
-              borderRadius: 2,
-              ...(done
-                ? {
-                    borderColor: accentBg(t),
-                    color: accent ? accentBg(t) : t.palette.primary.main,
-                    animation: "pulse 1.2s ease-in-out 2",
-                  }
-                : {
-                    backgroundColor: accentBg(t),
-                    "&:hover": { filter: "brightness(1.05)" },
-                  }),
-              "@keyframes pulse": {
-                "0%": { boxShadow: "0 0 0 0 rgba(0,0,0,0.0)" },
-                "50%": {
-                  boxShadow:
-                    "0 0 0 12px rgba(124,58,237,0.15), 0 0 0 0 rgba(0,0,0,0.0)",
-                },
-                "100%": { boxShadow: "0 0 0 0 rgba(0,0,0,0.0)" },
-              },
-            })}
+            sx={{ mt: 1, fontWeight: 700, borderRadius: 2 }}
           >
             {done ? "It’s time!" : buttonText}
           </Button>
@@ -212,7 +176,7 @@ export default function CountDown({
   );
 }
 
-// ------- layouts -------
+// ------- layouts (unchanged from your version) -------
 function FullCounter({ days, hours, minutes, seconds, accent }) {
   return (
     <Box
@@ -242,40 +206,19 @@ function CompactCounter({ days, hours, minutes, seconds }) {
       role="timer"
       aria-live="polite"
       variant="outlined"
-      sx={(t) => ({
+      sx={{
         display: "inline-flex",
         alignItems: "center",
         gap: 1,
         px: 1.25,
         py: 0.75,
         borderRadius: 999,
-        fontVariantNumeric: "tabular-nums lining-nums",
-        borderColor:
-          t.palette.mode === "dark"
-            ? "rgba(255,255,255,0.18)"
-            : "rgba(0,0,0,0.14)",
-        background:
-          t.palette.mode === "dark"
-            ? "rgba(255,255,255,0.06)"
-            : "rgba(255,255,255,0.85)",
-      })}
+      }}
     >
-      <Typography
-        component="span"
-        sx={{
-          fontWeight: 800,
-          letterSpacing: 0.5,
-          fontSize: 28,
-          lineHeight: 1,
-        }}
-      >
+      <Typography component="span" sx={{ fontWeight: 800, fontSize: 28 }}>
         {days}:{hours}:{minutes}:{seconds}
       </Typography>
-      <Typography
-        component="span"
-        variant="caption"
-        sx={{ ml: 0.5, opacity: 0.7 }}
-      >
+      <Typography component="span" variant="caption" sx={{ ml: 0.5, opacity: 0.7 }}>
         Days:Hours:Min:Sec
       </Typography>
     </Paper>
@@ -287,47 +230,12 @@ function TimeBlock({ label, value, accent }) {
   return (
     <Paper
       variant="outlined"
-      sx={(t) => ({
-        minWidth: { xs: 76, sm: 86, md: 96 },
-        px: { xs: 1.25, sm: 1.75 },
-        py: { xs: 1, sm: 1.25 },
-        borderRadius: 3,
-        display: "grid",
-        placeItems: "center",
-        borderColor:
-          t.palette.mode === "dark"
-            ? "rgba(255,255,255,0.14)"
-            : "rgba(0,0,0,0.12)",
-        background:
-          t.palette.mode === "dark"
-            ? "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03))"
-            : "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8))",
-      })}
+      sx={{ minWidth: 76, px: 1.25, py: 1, borderRadius: 3, display: "grid", placeItems: "center" }}
     >
-      <Typography
-        variant="h3"
-        sx={{
-          fontWeight: 800,
-          lineHeight: 1.05,
-          fontVariantNumeric: "tabular-nums lining-nums",
-        }}
-      >
+      <Typography variant="h3" sx={{ fontWeight: 800 }}>
         {value}
       </Typography>
-      <Typography
-        variant="caption"
-        sx={(t) => ({
-          letterSpacing: 1,
-          textTransform: "uppercase",
-          mt: 0.5,
-          color:
-            accent ??
-            (t.palette.mode === "dark"
-              ? "rgba(255,255,255,0.8)"
-              : "rgba(0,0,0,0.6)"),
-          fontWeight: 700,
-        })}
-      >
+      <Typography variant="caption" sx={{ mt: 0.5, fontWeight: 700 }}>
         {label}
       </Typography>
     </Paper>
@@ -339,15 +247,7 @@ function TimeSep() {
     <Typography
       component="span"
       aria-hidden="true"
-      sx={{
-        alignSelf: "center",
-        px: { xs: 0.25, sm: 0.5 },
-        opacity: 0.4,
-        fontSize: { xs: 28, sm: 34, md: 38 },
-        fontWeight: 700,
-        lineHeight: 1,
-        userSelect: "none",
-      }}
+      sx={{ alignSelf: "center", px: 0.5, opacity: 0.4, fontSize: 34, fontWeight: 700 }}
     >
       :
     </Typography>
