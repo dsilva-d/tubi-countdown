@@ -68,7 +68,7 @@ export default function CountDown({
     (() => {
       if (done) return;
       alert(
-        `Easy, it's not added to Tubi yet. It's supposed to be added Friday, November 7th, 2025 and today is ${today}. Come on, why even press it.`
+        `Easy, it's not added to Tubi yet. It's supposed to be added Friday, November 7th, 2025 and today is ${today}. Come on, why even press the button. Seriously, I want to know. What did you expect?`
       );
     });
 
