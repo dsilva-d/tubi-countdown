@@ -75,15 +75,21 @@ export default function CountDown({
     []
   );
 
+  const TUBI_URL = "https://tubitv.com/movies/100045961/growing-pains";
+
   const handleClick =
     onButtonClick ??
     (() => {
       if (!done) {
-        alert(
-          `Easy, it's not added to Tubi yet. It's supposed to be added Friday, November 7th, 2025 and today is ${today}. Come on, why even press the button. Seriously, I want to know. What did you expect. Tell me. You thought I was just gonna make the movie? Like generate my own Growing Pains movie? Jesus, you're slow. Just wait. Learn to have some patience. Go on Subway Surfers or whatever you do with you wasteful freetime. Come back when it's actually Tuesday, November 7th, 2025, prick.`
-        );
+        alert(`Not yet! Come back on ${fmtLongDate(target)}.`);
+        return;
+      }
+      // If you also compile to native, this will be replaced by Linking.openURL
+      if (typeof window !== "undefined") {
+        window.open(TUBI_URL, "_blank", "noopener,noreferrer");
       }
     });
+
 
   const accentBg = (t) => accent ?? t.palette.primary.main;
 
