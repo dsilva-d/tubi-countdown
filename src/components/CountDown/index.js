@@ -81,7 +81,9 @@ export default function CountDown({
     onButtonClick ??
     (() => {
       if (!done) {
-        alert(`Not yet! Come back on ${fmtLongDate(target)}.`);
+        alert(
+          `Easy, it's not added to Tubi yet. It's supposed to be added Friday, November 7th, 2025 and today is ${today}. Come on, why even press the button. Seriously, I want to know. What did you expect. Tell me. You thought I was just gonna make the movie? Like generate my own Growing Pains movie? Jesus, you're slow. Just wait. Learn to have some patience. Go on Subway Surfers or whatever you do with you wasteful freetime. Come back when it's actually Tuesday, November 7th, 2025, prick.`
+        );
         return;
       }
       // If you also compile to native, this will be replaced by Linking.openURL
